@@ -1,3 +1,11 @@
 .covert {
 	display: none;
 }
+
+.active {
+	background-color: #f5f5f5;
+}
+
+.extra {
+	padding-right: 10px;
+}
