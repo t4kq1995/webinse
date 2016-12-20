@@ -20,6 +20,10 @@ $(document).ready(function() {
 		max: {
 			max: 30,
 			message: 'You need to put less than 30 symbols'
+		},
+		alpha: {
+			alpha: true,
+			message: 'Field may only contain [A-Za-z]'
 		}
 	};
 
@@ -30,6 +34,10 @@ $(document).ready(function() {
 		max: {
 			max: 30,
 			message: 'You need to put less than 30 symbols'
+		},
+		alpha: {
+			alpha: true,
+			message: 'Field may only contain [A-Za-z]'
 		}
 	};
 
@@ -130,6 +138,11 @@ $(document).ready(function() {
 		}
 
 		return approved;
+	}
+
+	/*** Capitalize letter ***/
+	String.prototype.capitalizeFirstLetter = function() {
+    	return this.charAt(0).toUpperCase() + this.slice(1);
 	}
 
 	/* Load data from database */
@@ -254,8 +267,8 @@ $(document).ready(function() {
   			type: "POST",
   			url: routing.addinfo,
   			data: {
-  				'first_name': data.first_name,
-  				'second_name': data.second_name,
+  				'first_name': data.first_name.capitalizeFirstLetter(),
+  				'second_name': data.second_name.capitalizeFirstLetter(),
   				'email': data.email
   			}
 		});
@@ -274,8 +287,8 @@ $(document).ready(function() {
   			url: routing.editinfo,
   			data: {
   				'id': USER_ID,
-  				'first_name': data.first_name,
-  				'second_name': data.second_name,
+  				'first_name': data.first_name.capitalizeFirstLetter(),
+  				'second_name': data.second_name.capitalizeFirstLetter(),
   				'email': data.email
   			}
 		});
@@ -311,6 +324,9 @@ $(document).ready(function() {
 				if ($('tbody').find('tr').length == 0) {
 					dataEmpty();
 				}
+
+				COLLAPSE_STATUS = 'hide';
+				$('#collapseForm').collapse(COLLAPSE_STATUS);
 
 				notifyMe('Success', 'success');
 			});
@@ -399,11 +415,11 @@ $(document).ready(function() {
 				});
 
 				var td = $('<td/>');
-				td.append(data.first_name.val());
+				td.append(data.first_name.val().capitalizeFirstLetter());
 				tr.append(td);
 
 				td = $('<td/>');
-				td.append(data.second_name.val());
+				td.append(data.second_name.val().capitalizeFirstLetter());
 				tr.append(td);
 
 				td = $('<td/>');
